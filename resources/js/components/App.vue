@@ -3,8 +3,9 @@
     <div class="card border-primary">
       <div class="card-body">
 
-        <h1>Hello {{ name }} 👋</h1>
-        <input v-model="name" class="form-control mb-3" placeholder="Enter your name" />
+        <h1>Hello {{ username  }} 👋</h1>
+        <h5> Role: <strong>{{ role }}</strong></h5>
+         <!-- <input v-model="name" class="form-control mb-3" placeholder="Enter your name" /> -->
 
             <TodoList
                 :todos="todos"
@@ -23,16 +24,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch  } from 'vue'
 import TodoList from './TodoList.vue'
 import AddTodoForm from './AddTodoForm.vue'
 
-const todos = ref([
-  { id: 1, text: 'Arrive office at 10:00 AM', done: true },
-  { id: 2, text: 'Import data to new Database', done: false },
-  { id: 3, text: 'Contact Us Form', done: true }
-])
 
+const props = defineProps({
+  username: String,
+  role : String,
+  tasks: Array
+})
+
+
+// Convert props → reactive state
+const todos = ref([...props.tasks])
+const username = ref(props.username)
 function addTask(text) {
   todos.value.push({
     id: Date.now(),
@@ -52,4 +58,13 @@ function updateTask(index, newText) {
 function clearAllTasks() {
   todos.value = []
 }
+
+
+watch(
+  todos,
+  (newTodos, oldTodos) => {
+    console.log('Todos changed:', newTodos)
+  },
+  { deep: true }
+)
 </script>

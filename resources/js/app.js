@@ -1,6 +1,12 @@
 import { createApp } from 'vue'
 import './bootstrap';
 
-import HelloWorld from './components/App.vue';
+import App from './components/App.vue';
 
-createApp(HelloWorld).mount('#app');
+const appElement = document.getElementById('app')
+
+createApp(App, {
+    username: JSON.parse(appElement.dataset.username),
+    role: JSON.parse(appElement.dataset.role),
+    tasks: JSON.parse(appElement.dataset.tasks),
+}).mount('#app')
