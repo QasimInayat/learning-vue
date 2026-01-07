@@ -1,101 +1,12 @@
 <template>
-  <div class="container mt-5">
-    <div class="card border-primary">
-      <div class="card-body">
+  <div class="p-6">
+    <nav class="mb-4 space-x-4">
+      <router-link to="/">Home</router-link>
+      <router-link to="/todos">Todos</router-link>
+      <router-link to="/about">About Us</router-link>
 
-        <h1>Hello {{ username  }} 👋</h1>
-        <h5> Role: <strong>{{ role }}</strong></h5>
-         <!-- <input v-model="name" class="form-control mb-3" placeholder="Enter your name" /> -->
+    </nav>
 
-
-            <TodoList
-                :todos="todos"
-                @remove="removeTask"
-                @update="updateTask"
-            />
-
-            <AddTodoForm
-                @add="addTask"
-                @clear="clearAllTasks"
-            />
-
-      </div>
-    </div>
+    <router-view />
   </div>
 </template>
-
-<script setup>
-
-    import { ref, watch, onMounted, onUpdated, onUnmounted, reactive   } from 'vue'
-    import TodoList from './TodoList.vue'
-    import AddTodoForm from './AddTodoForm.vue'
-
-
-    const props = defineProps({
-        username: String,
-        role : String,
-        tasks: Array
-    })
-
-
-    // Convert props → reactive state
-    const todos = ref([...props.tasks])
-    const username = ref(props.username)
-
-    function addTask(task) {
-        todos.value.push({
-            id: Date.now(),
-            text: task.text,
-            done: task.done
-        })
-    }
-
-
-    function removeTask(index) {
-        todos.value.splice(index, 1)
-    }
-
-    function updateTask(index, newText) {
-        todos.value[index].text = newText
-    }
-
-    function clearAllTasks() {
-        todos.value = []
-    }
-
-
-    watch(
-        todos,
-        (newTodos, oldTodos) => {
-            console.log('Todos changed:', newTodos)
-            // console.log('Todos old:', oldTodos)
-        },
-        { deep: true }
-    )
-
-
-    //Lesson 6
-    onMounted(() => {
-    console.log('Mounted: DOM is ready')
-    })
-
-    onUpdated(() => {
-    console.log('Updated: UI changed')
-    })
-
-    onUnmounted(() => {
-    console.log('Unmounted: cleanup done')
-    })
-
-
-    setTimeout(() => {
-        username.value = 'Muhammad Qasim Inayat'
-    }, 2000)
-
-
-    //Lesson 7 : Forms & Validation
-
-
-
-
-</script>
