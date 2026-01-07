@@ -24,47 +24,69 @@
 </template>
 
 <script setup>
-import { ref, watch  } from 'vue'
-import TodoList from './TodoList.vue'
-import AddTodoForm from './AddTodoForm.vue'
+
+    import { ref, watch, onMounted, onUpdated, onUnmounted  } from 'vue'
+    import TodoList from './TodoList.vue'
+    import AddTodoForm from './AddTodoForm.vue'
 
 
-const props = defineProps({
-  username: String,
-  role : String,
-  tasks: Array
-})
+    const props = defineProps({
+        username: String,
+        role : String,
+        tasks: Array
+    })
 
 
-// Convert props → reactive state
-const todos = ref([...props.tasks])
-const username = ref(props.username)
-function addTask(text) {
-  todos.value.push({
-    id: Date.now(),
-    text,
-    done: false
-  })
-}
+    // Convert props → reactive state
+    const todos = ref([...props.tasks])
+    const username = ref(props.username)
+    function addTask(text) {
+        todos.value.push({
+            id: Date.now(),
+            text,
+            done: false
+        })
+    }
 
-function removeTask(index) {
-  todos.value.splice(index, 1)
-}
+    function removeTask(index) {
+        todos.value.splice(index, 1)
+    }
 
-function updateTask(index, newText) {
-  todos.value[index].text = newText
-}
+    function updateTask(index, newText) {
+        todos.value[index].text = newText
+    }
 
-function clearAllTasks() {
-  todos.value = []
-}
+    function clearAllTasks() {
+        todos.value = []
+    }
 
 
-watch(
-  todos,
-  (newTodos, oldTodos) => {
-    console.log('Todos changed:', newTodos)
-  },
-  { deep: true }
-)
+    watch(
+        todos,
+        (newTodos, oldTodos) => {
+            console.log('Todos changed:', newTodos)
+            // console.log('Todos old:', oldTodos)
+        },
+        { deep: true }
+    )
+
+
+
+    onMounted(() => {
+    console.log('Mounted: DOM is ready')
+    })
+
+    onUpdated(() => {
+    console.log('Updated: UI changed')
+    })
+
+    onUnmounted(() => {
+    console.log('Unmounted: cleanup done')
+    })
+
+
+    setTimeout(() => {
+        username.value = 'Muhammad Qasim Inayat'
+    }, 2000)
+
 </script>
