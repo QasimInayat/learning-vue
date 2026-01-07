@@ -7,6 +7,7 @@
         <h5> Role: <strong>{{ role }}</strong></h5>
          <!-- <input v-model="name" class="form-control mb-3" placeholder="Enter your name" /> -->
 
+
             <TodoList
                 :todos="todos"
                 @remove="removeTask"
@@ -25,7 +26,7 @@
 
 <script setup>
 
-    import { ref, watch, onMounted, onUpdated, onUnmounted  } from 'vue'
+    import { ref, watch, onMounted, onUpdated, onUnmounted, reactive   } from 'vue'
     import TodoList from './TodoList.vue'
     import AddTodoForm from './AddTodoForm.vue'
 
@@ -40,13 +41,15 @@
     // Convert props → reactive state
     const todos = ref([...props.tasks])
     const username = ref(props.username)
-    function addTask(text) {
+
+    function addTask(task) {
         todos.value.push({
             id: Date.now(),
-            text,
-            done: false
+            text: task.text,
+            done: task.done
         })
     }
+
 
     function removeTask(index) {
         todos.value.splice(index, 1)
@@ -71,7 +74,7 @@
     )
 
 
-
+    //Lesson 6
     onMounted(() => {
     console.log('Mounted: DOM is ready')
     })
@@ -88,5 +91,11 @@
     setTimeout(() => {
         username.value = 'Muhammad Qasim Inayat'
     }, 2000)
+
+
+    //Lesson 7 : Forms & Validation
+
+
+
 
 </script>
