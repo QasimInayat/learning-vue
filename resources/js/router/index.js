@@ -7,6 +7,7 @@ import About from '../pages/About.vue'
 import TodoDetails from '../pages/TodoDetails.vue'
 import Profile from '../pages/Profile.vue'
 import { isAuthenticated } from '../auth'
+import { useAuthStore } from '../stores/auth'
 
 
 
@@ -30,6 +31,17 @@ export default router
 
 router.beforeEach((to, from, next) => {
   if (to.path.startsWith('/todos') && !isAuthenticated()) {
+    next('/')
+  } else {
+    next()
+  }
+})
+
+
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore()
+
+  if (to.meta.requiresAuth && !auth.loggedIn) {
     next('/')
   } else {
     next()
