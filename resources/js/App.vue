@@ -15,6 +15,10 @@
                     <router-link to="/todos">Todos</router-link>
                 </li>
                 <li class="nav-item">
+                    <router-link :to="`/profile/qasim`">View Profile</router-link>
+
+                </li>
+                <li class="nav-item">
                     <router-link to="/about">About Us</router-link>
                 </li>
             </ul>
@@ -23,3 +27,4 @@
     <router-view />
   </div>
 </template>
+
