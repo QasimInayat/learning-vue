@@ -1,35 +1,33 @@
-
 import { defineStore } from 'pinia'
+import http from '../services/http'
 
 export const useTodoStore = defineStore('todo', {
-    state: () => ({
-        todos: [
-            { id: 1, text: 'Learn Vue', done: false },
-            { id: 2, text: 'Learn Pinia', done: true }
-        ]
-    }),
+  state: () => ({
+    todos: [],
+    loading: false,
+    error: null
+  }),
 
-    getters: {
-        completedCount: (state) =>
-            state.todos.filter(todo => todo.done).length
+  actions: {
+    async fetchTodos() {
+      this.loading = true
+      try {
+        const res = await http.get('/todos')
+        this.todos = res.data
+      } catch (e) {
+        this.error = 'Failed to load todos'
+      } finally {
+        this.loading = false
+      }
     },
 
-    actions: {
-        addTodo(text) {
-            this.todos.push({
-                id: Date.now(),
-                text,
-                done: false
-            })
-        },
-
-        removeTodo(id) {
-            this.todos = this.todos.filter(todo => todo.id !== id)
-        },
-
-        toggleTodo(id) {
-            const todo = this.todos.find(t => t.id === id)
-            if (todo) todo.done = !todo.done
-        }
+    async addTodo(text) {
+      try {
+        const res = await http.post('/todos', { text })
+        this.todos.push(res.data)
+      } catch (e) {
+        this.error = 'Failed to add todo'
+      }
     }
+  }
 })
