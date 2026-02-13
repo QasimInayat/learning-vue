@@ -1,59 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Learning Vue 3 + Laravel 11 (SPA Auth)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a step-by-step learning journey to build a Single Page Application (SPA) using Laravel 11 as the backend and Vue 3 as the frontend.
 
-## About Laravel
+## 🚀 Phase 1: Setup & Foundation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Project Initialization
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Installed Laravel 11:
+    ```bash
+    composer create-project laravel/laravel .
+    ```
+- Installed Frontend Dependencies (Vue 3, Vue Router, Vite Plugin):
+    ```bash
+    npm install vue@latest vue-router@4 @vitejs/plugin-vue
+    ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Frontend Configuration (`vite.config.js`)
 
-## Learning Laravel
+- Added the `vue()` plugin to Vite to handle `.vue` files.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Vue Setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Created `resources/js/App.vue` as the main entry component.
+- Configured **Vue Router** in `resources/js/router.js` with basic "Home" and "About" routes.
+- Updated `resources/js/app.js` to mount the Vue app.
 
-## Laravel Sponsors
+### 4. SPA "Catch-all" Route
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Updated `routes/web.php` to hand over all requests to Vue:
+    ```php
+    Route::get('/{any}', function () {
+        return view('app');
+    })->where('any', '.*');
+    ```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🔒 Phase 2: Authentication (SPA Style)
 
-## Contributing
+We implemented authentication using **Laravel Sanctum** (Session/Cookie based).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Backend Setup
 
-## Code of Conduct
+- **Installed Sanctum** (Required for Laravel 12+ skeletons if missing):
+    ```bash
+    composer require laravel/sanctum
+    php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+    ```
+- **Configured `bootstrap/app.php`**:
+    - Enabled `EnsureFrontendRequestsAreStateful` middleware for the API group.
+- **Configured `.env`**:
+    - Added `SANCTUM_STATEFUL_DOMAINS` to allow our local test domain (e.g., `learning-vue2.test`, `localhost:8000`).
+- **Database**:
+    - Created `learning_vue` database.
+    - Ran `php artisan migrate`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Authentication Logic
 
-## Security Vulnerabilities
+- **Created `AuthController`**:
+    - Handles `/login`, `/register`, and `/logout` requests.
+    - returns JSON responses.
+- **Registered Routes** in `routes/web.php`:
+    ```php
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    ```
+    _(Note: We used `web.php` for these specific auth routes to leverage session-based guard easily, while other data routes will go in `api.php`)_.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Frontend logic (`useAuth.js`)
 
-## License
+- Created a **Composable** `resources/js/composables/useAuth.js`.
+- Manages `user` state and `errors`.
+- handles `login()`, `register()`, and `logout()` actions using Axios.
+- **Axios Config** (`bootstrap.js`):
+    - Enabled `withCredentials = true` to send cookies with requests.
+    - Enabled `withXSRFToken = true`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. UI Components
+
+- Created `Login.vue` and `Register.vue`.
+- Updated `App.vue` to show "Welcome, [Name]" or Login/Register links based on auth state.
+
+---
+
+## ✅ Current Status
+
+- [x] Catch-all Routing working.
+- [x] User can Register.
+- [x] User can Login.
+- [x] User remains logged in on refresh.
+- [x] Logout works.
+
+## 🔜 Next Steps (Phase 3)
+
+- Build "Public Website" pages (Blogs, Contact Us).
+- Create "Admin Panel" with separate layout.
