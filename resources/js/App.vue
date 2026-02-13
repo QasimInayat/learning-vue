@@ -1,35 +1,13 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
-            <span class="text-danger">Hello</span>
-        </div>
+    <div class="container mx-auto p-4">
+        <nav class="mb-4">
+            <router-link to="/" class="mr-4 text-blue-500 hover:text-blue-700">Home</router-link>
+            <router-link to="/about" class="text-blue-500 hover:text-blue-700">About</router-link>
+        </nav>
+        <router-view></router-view>
     </div>
-  <div class="p-6">
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <router-link to="/">Home</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link to="/todos">Todos</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link :to="`/profile/qasim`">View Profile</router-link>
-
-                </li>
-                <li class="nav-item">
-                    <router-link to="/about">About Us</router-link>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <router-view />
-  </div>
 </template>
 
+<script setup>
+// Composition API script setup
+</script>
