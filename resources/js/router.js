@@ -14,6 +14,16 @@ const routes = [
         component: About
     },
     {
+        path: '/blogs',
+        name: 'BlogList',
+        component: () => import('./components/blog/BlogList.vue')
+    },
+    {
+        path: '/blogs/:slug',
+        name: 'BlogDetail',
+        component: () => import('./components/blog/BlogDetail.vue')
+    },
+    {
         path: '/login',
         name: 'Login',
         component: () => import('./components/auth/Login.vue')

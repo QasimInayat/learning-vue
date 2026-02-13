@@ -3,7 +3,8 @@
         <nav class="mb-4 flex justify-between items-center">
             <div>
                 <router-link to="/" class="mr-4 text-blue-500 hover:text-blue-700">Home</router-link>
-                <router-link to="/about" class="text-blue-500 hover:text-blue-700">About</router-link>
+                <router-link to="/about" class="mr-4 text-blue-500 hover:text-blue-700">About</router-link>
+                <router-link to="/blogs" class="text-blue-500 hover:text-blue-700">Blogs</router-link>
             </div>
             <div v-if="user" class="flex items-center gap-4">
                 <span class="text-gray-700">Welcome, {{ user.name }}</span>

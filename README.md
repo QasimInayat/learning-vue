@@ -96,3 +96,47 @@ We implemented authentication using **Laravel Sanctum** (Session/Cookie based).
 
 - Build "Public Website" pages (Blogs, Contact Us).
 - Create "Admin Panel" with separate layout.
+
+---
+
+## 📰 Phase 3: Public Website (Blogs)
+
+We added a public blog system.
+
+### 1. Backend Resources
+
+- **Created `Post` Model & Migration**:
+    - Fields: `title`, `slug`, `content`, `image`, `user_id`.
+- **Created `PostFactory`**: Generates dummy data using Faker.
+- **Created `PostController`**:
+    - `index()`: Returns paginated posts.
+    - `show($slug)`: Returns single post.
+- **API Routes**:
+    - `GET /api/posts`
+    - `GET /api/posts/{slug}`
+
+### 2. Database Seeding
+
+- Updated `DatabaseSeeder` to create 10 dummy posts.
+- Ran `php artisan migrate:fresh --seed`.
+
+### 3. Frontend Components
+
+- **`BlogList.vue`**: Fetches and displays posts in a grid.
+- **`BlogDetail.vue`**: Fetches and displays a single post based on the slug.
+- **Routing**: Added `/blogs` and `/blogs/:slug` to `router.js`.
+- **Navigation**: Added "Blogs" link to `App.vue`.
+
+---
+
+## ✅ Current Status
+
+- [x] Authentication works.
+- [x] Blog Listing works.
+- [x] Single Blog View works.
+
+## 🔜 Next Steps (Phase 4)
+
+- Create Admin Panel (Separate Layout).
+- Admin Dashboard with Charts.
+- User & Blog Management (CRUD).
