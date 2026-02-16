@@ -24,6 +24,17 @@ const routes = [
         component: () => import('./components/blog/BlogDetail.vue')
     },
     {
+        path: '/featured',
+        name: 'FeaturedPosts',
+        component: () => import('./components/blog/FeaturedPosts.vue')
+    },
+    {
+        path: '/latest',
+        name: 'LatestPosts',
+        component: () => import('./components/blog/LatestPosts.vue')
+    },
+
+    {
         path: '/login',
         name: 'Login',
         component: () => import('./components/auth/Login.vue')
