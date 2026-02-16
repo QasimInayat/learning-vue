@@ -92,7 +92,7 @@ We implemented authentication using **Laravel Sanctum** (Session/Cookie based).
 - [x] User remains logged in on refresh.
 - [x] Logout works.
 
-## 🔜 Next Steps (Phase 3)
+## Phase 3
 
 - Build "Public Website" pages (Blogs, Contact Us).
 - Create "Admin Panel" with separate layout.
@@ -135,7 +135,7 @@ We added a public blog system.
 - [x] Blog Listing works.
 - [x] Single Blog View works.
 
-## 🔜 Next Steps (Phase 4)
+## Phase 4
 
 - Create Admin Panel (Separate Layout).
 - Admin Dashboard with Charts.
@@ -154,3 +154,11 @@ We added a public blog system.
 - **App.vue**: Acts as a root container.
 - **PublicLayout.vue**: Contains Public Navigation and Footer. Wraps public routes.
 - **AdminLayout.vue**: Contains Admin Sidebar and Header. Wraps `/admin` routes.
+
+### 6. Blog Management Module
+
+- **Categories**: Full CRUD for organizing posts.
+- **Posts**:
+    - **Create/Edit**: Managing Title, Slug, Content, and **Image Uploads**.
+    - **List View**: Displays posts with thumbnails and categories.
+- **Storage**: Configured `public` disk for image storage.
