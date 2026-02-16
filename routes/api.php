@@ -20,5 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
         Route::get('/stats', [AdminController::class, 'stats']);
         Route::get('/users', [AdminController::class, 'users']);
+        
+        Route::apiResource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+        Route::apiResource('posts', \App\Http\Controllers\Admin\PostController::class);
     });
 });

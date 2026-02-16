@@ -63,6 +63,26 @@ const routes = [
                 path: 'users',
                 name: 'UserList',
                 component: () => import('./components/admin/users/UserList.vue')
+            },
+            {
+                path: 'categories',
+                name: 'CategoryList',
+                component: () => import('./components/admin/categories/CategoryList.vue')
+            },
+            {
+                path: 'posts',
+                name: 'PostList',
+                component: () => import('./components/admin/posts/PostList.vue')
+            },
+            {
+                path: 'posts/create',
+                name: 'PostCreate',
+                component: () => import('./components/admin/posts/PostForm.vue')
+            },
+            {
+                path: 'posts/:id/edit',
+                name: 'PostEdit',
+                component: () => import('./components/admin/posts/PostForm.vue')
             }
         ]
     }

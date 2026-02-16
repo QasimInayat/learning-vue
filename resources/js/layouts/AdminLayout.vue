@@ -6,7 +6,8 @@
             <nav class="flex-1 p-4 space-y-2">
                 <router-link to="/admin/dashboard" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</router-link>
                 <router-link to="/admin/users" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Users</router-link>
-                <router-link to="/admin/posts" class="block py-2 px-4 rounded hover:bg-gray-700 transition opacity-50 cursor-not-allowed">Posts (Coming Soon)</router-link>
+                <router-link to="/admin/categories" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Categories</router-link>
+                <router-link to="/admin/posts" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Posts</router-link>
             </nav>
             <div class="p-4 border-t border-gray-700">
                 <router-link to="/" class="block py-2 px-4 text-gray-400 hover:text-white transition">&larr; Back to Site</router-link>
