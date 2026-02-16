@@ -140,3 +140,17 @@ We added a public blog system.
 - Create Admin Panel (Separate Layout).
 - Admin Dashboard with Charts.
 - User & Blog Management (CRUD).
+
+### 4. User Roles & Authorization
+
+- **Admin**: `admin@example.com` / `password`
+- **User**: `test@example.com` / `password`
+- **Middleware**: Created `AdminMiddleware` to protecting `/api/admin` routes.
+- **Middleware**: Created `AdminMiddleware` to protecting `/api/admin` routes.
+- **Frontend Guard**: Updated `router.js` to redirect non-admins.
+
+### 5. Layout Architecture
+
+- **App.vue**: Acts as a root container.
+- **PublicLayout.vue**: Contains Public Navigation and Footer. Wraps public routes.
+- **AdminLayout.vue**: Contains Admin Sidebar and Header. Wraps `/admin` routes.
